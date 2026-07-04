@@ -1,0 +1,29 @@
+{
+  "name": "beck-recruiting",
+  "version": "0.1.0",
+  "description": "Football recruiting distribution service: coach database, AI-personalized outreach, engagement tracking",
+  "type": "module",
+  "main": "dist/index.js",
+  "scripts": {
+    "dev": "tsx watch src/index.ts",
+    "start": "node dist/index.js",
+    "build": "tsc && mkdir -p dist/db && cp src/db/schema.sql dist/db/",
+    "sync:cfbd": "tsx src/scripts/syncCfbd.ts",
+    "scrape:staff": "tsx src/scripts/scrapeStaff.ts",
+    "seed": "tsx src/scripts/seed.ts"
+  },
+  "license": "UNLICENSED",
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.110.0",
+    "better-sqlite3": "^12.4.1",
+    "cheerio": "^1.0.0",
+    "dotenv": "^16.4.5",
+    "fastify": "^5.2.0"
+  },
+  "devDependencies": {
+    "@types/better-sqlite3": "^7.6.11",
+    "@types/node": "^22.10.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.7.0"
+  }
+}
