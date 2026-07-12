@@ -3,6 +3,7 @@ import { coreRoutes } from "./routes/core.js";
 import { campaignRoutes } from "./routes/campaigns.js";
 import { trackingRoutes } from "./routes/tracking.js";
 import { adminRoutes } from "./routes/admin.js";
+import { dashboardRoutes } from "./routes/dashboard.js";
 
 export function buildServer() {
   const app = Fastify({ logger: true });
@@ -13,6 +14,7 @@ export function buildServer() {
   app.register(campaignRoutes);
   app.register(trackingRoutes);
   app.register(adminRoutes);
+  app.register(dashboardRoutes);
 
   return app;
 }
