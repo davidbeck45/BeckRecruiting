@@ -4,6 +4,7 @@ import { campaignRoutes } from "./routes/campaigns.js";
 import { trackingRoutes } from "./routes/tracking.js";
 import { adminRoutes } from "./routes/admin.js";
 import { dashboardRoutes } from "./routes/dashboard.js";
+import { programRoutes } from "./routes/program.js";
 
 export function buildServer() {
   const app = Fastify({ logger: true });
@@ -15,6 +16,7 @@ export function buildServer() {
   app.register(trackingRoutes);
   app.register(adminRoutes);
   app.register(dashboardRoutes);
+  app.register(programRoutes);
 
   return app;
 }

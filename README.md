@@ -52,6 +52,10 @@ Assistant coaches + emails come from staff-directory scraping (`PATCH /schools/:
 | `POST /sync/cfbd` | Sync schools + head coaches from CFBD |
 | `POST /schools/:id/scrape` | Scrape a school's staff directory for assistants + emails |
 | `POST /athletes/:id/match` | AI school-fit ranking (0–100 with rationale) |
+| `POST /athletes/:id/projections` | Written level projection (P4/G5/FCS/D2/D3/NAIA) — the Sophomore Kickoff deliverable |
+| `POST /athletes/:id/verifications` | Certified measurables (laser-timed, coach-signed); cited by the AI composer |
+| `POST /athletes/:id/signings` | Signing outcome (school + level) |
+| `GET /receipts` | "The Receipts": % signed at or above projection + twice-a-year follow-up call list |
 | `POST /campaigns` | Build a target list (division/state/position filters, suppression-aware) |
 | `POST /campaigns/:id/send` | AI-compose + send one personalized email per coach |
 | `GET /campaigns/:id/report` | Per-coach opens, film clicks, last-view timestamps |

@@ -97,6 +97,47 @@ CREATE TABLE IF NOT EXISTS message_events (
 );
 CREATE INDEX IF NOT EXISTS idx_events_message ON message_events(message_id);
 
+-- Written level projections (the Sophomore Recruiting Kickoff deliverable).
+-- Levels: p4 | g5 | fcs | d2 | d3 | naia | juco
+CREATE TABLE IF NOT EXISTS projections (
+  id INTEGER PRIMARY KEY,
+  athlete_id INTEGER NOT NULL REFERENCES athletes(id),
+  level TEXT NOT NULL,
+  projected_by TEXT NOT NULL,     -- evaluator name (e.g. "Coach Aaron Beck")
+  notes TEXT,                     -- written assessment
+  film_plan TEXT,                 -- what the junior cutup needs to show
+  academic_notes TEXT,            -- eligibility / grad timeline / early enrollment
+  projected_at TEXT NOT NULL DEFAULT (datetime('now')),
+  created_at TEXT NOT NULL DEFAULT (datetime('now'))
+);
+CREATE INDEX IF NOT EXISTS idx_projections_athlete ON projections(athlete_id);
+
+-- Certified measurables: "laser-timed, coach-certified numbers colleges actually trust".
+-- Outreach only cites verified values.
+CREATE TABLE IF NOT EXISTS verifications (
+  id INTEGER PRIMARY KEY,
+  athlete_id INTEGER NOT NULL REFERENCES athletes(id),
+  metric TEXT NOT NULL,           -- forty | vertical | bench | squat | height | weight | shuttle | broad
+  value REAL NOT NULL,
+  method TEXT,                    -- laser | electronic | coach_certified
+  verified_by TEXT NOT NULL,      -- staff member who signed off
+  verified_at TEXT NOT NULL DEFAULT (datetime('now')),
+  UNIQUE(athlete_id, metric)
+);
+
+-- Signing outcomes: feeds "The Receipts" (% signed at or above projected level)
+-- and the twice-a-year college follow-up call list.
+CREATE TABLE IF NOT EXISTS signings (
+  id INTEGER PRIMARY KEY,
+  athlete_id INTEGER NOT NULL REFERENCES athletes(id) UNIQUE,
+  school_id INTEGER REFERENCES schools(id),
+  school_name TEXT,               -- free text when the school isn't in the DB (NAIA/JUCO)
+  level TEXT NOT NULL,            -- p4 | g5 | fcs | d2 | d3 | naia | juco | none
+  signed_at TEXT NOT NULL DEFAULT (datetime('now')),
+  notes TEXT,
+  created_at TEXT NOT NULL DEFAULT (datetime('now'))
+);
+
 -- Global opt-out list: a coach who opts out is suppressed for every campaign, forever.
 CREATE TABLE IF NOT EXISTS suppressions (
   email TEXT PRIMARY KEY,

@@ -70,6 +70,9 @@ export async function campaignRoutes(app: FastifyInstance) {
     if (!campaign) return reply.code(404).send({ error: "campaign not found" });
 
     const athlete = db.prepare(`SELECT * FROM athletes WHERE id = ?`).get(campaign.athlete_id) as AthleteProfile;
+    athlete.verified_measurables = db
+      .prepare(`SELECT metric, value, method, verified_by FROM verifications WHERE athlete_id = ?`)
+      .all(campaign.athlete_id) as AthleteProfile["verified_measurables"];
     const drafts = db
       .prepare(
         `SELECT m.id, m.token, c.first_name, c.last_name, c.title, c.email,

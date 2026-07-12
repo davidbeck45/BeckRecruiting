@@ -23,6 +23,8 @@ export interface AthleteProfile {
   email: string | null;
   phone: string | null;
   twitter: string | null;
+  /** Coach-certified measurables (laser-timed etc.) — preferred over self-reported ones. */
+  verified_measurables?: Array<{ metric: string; value: number; method: string | null; verified_by: string }>;
 }
 
 export interface CoachTarget {
@@ -61,6 +63,7 @@ Rules:
 - 120 words max. Coaches read on phones between practices.
 - First sentence: who the athlete is (name, position, grad year, school, city/state).
 - Second: the 2-3 stats that matter most for this coach's position group and this school's level. Never invent numbers - use only what is provided.
+- When verified_measurables are present, cite those values over self-reported ones and note they are staff-certified (e.g. "laser-timed 4.62 forty, certified by our staff"). Coaches distrust inflated stopwatch times; certification is the credibility signal.
 - Include the placeholder FILM_LINK exactly once, early, on its own line, like: "Film: FILM_LINK".
 - Mention academics (GPA/test scores) when they are strong or when the school's division suggests academics matter (iii, Ivy-type).
 - Reference the coach by name and the program specifically (one concrete detail: conference, state proximity, their role).
